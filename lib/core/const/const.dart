@@ -18,8 +18,6 @@ const String allReviews="/allReviews-screens";
 
 
 String specialization="";
-
-
 int durationAnimate=700;
 
 
