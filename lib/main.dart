@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,12 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setupServiceLocator();
-
-  runApp( MyApp(appRouter: AppRouter(),));
+  runApp(
+    DevicePreview(
+      enabled: true, // enable for debug only
+      builder: (context) => MyApp(appRouter: AppRouter(),),
+    ),
+  );
 }
 
 
