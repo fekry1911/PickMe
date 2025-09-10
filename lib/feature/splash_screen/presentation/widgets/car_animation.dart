@@ -16,14 +16,14 @@ class CarAnimation extends StatelessWidget {
         .move(
       begin: Offset(-screenWidth, 0),
       end: Offset(0, 0),
-      duration: 1.5.seconds,
+      duration: 1.seconds,
       curve: Curves.easeOut,
     )
-        .then(delay: 3.seconds)
+        .then(delay: 1.4.seconds)
         .move(
       begin: Offset(0, 0),
       end: Offset(screenWidth, 0),
-      duration: 1.5.seconds,
+      duration: 1.seconds,
       curve: Curves.easeIn,
     );
   }

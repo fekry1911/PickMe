@@ -3,6 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/theme/colors.dart';
+
 class TextAnimate extends StatelessWidget {
   const TextAnimate({super.key});
 
@@ -20,7 +22,7 @@ class TextAnimate extends StatelessWidget {
                     style: GoogleFonts.aboreto(
                       fontSize: 30.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: AppColors.whiteColor,
                     ),
                   ),
                   SizedBox(height: 10.h),
@@ -29,7 +31,7 @@ class TextAnimate extends StatelessWidget {
                     style: GoogleFonts.aboreto(
                       fontSize: 30.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: AppColors.whiteColor,
                     ),
                   ),
                 ],
@@ -38,16 +40,16 @@ class TextAnimate extends StatelessWidget {
               .move(
                 begin: Offset(0, -screenHeight),
                 end: Offset(0, 0),
-                duration: 1.5.seconds,
+                duration: 1.seconds,
                 curve: Curves.easeOut,
               )
               .then(delay: .5.seconds)
-              .shake(duration: 2.seconds, curve: Curves.easeInOut)
+              .shake(duration: 1.seconds, curve: Curves.easeInOut)
               .then(delay: .5.seconds)
               .move(
                 begin: Offset(0, 0),
                 end: Offset(0, -screenHeight),
-                duration: 1.5.seconds,
+                duration: 1.seconds,
                 curve: Curves.easeIn,
               ),
     );

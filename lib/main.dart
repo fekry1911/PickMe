@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'core/di/di.dart';
+import 'core/routing/app_router.dart';
 import 'feature/splash_screen/presentation/splash_screen.dart';
 import 'firebase_options.dart';
 import 'my_app.dart';
@@ -10,7 +12,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  setupServiceLocator();
+
+  runApp( MyApp(appRouter: AppRouter(),));
 }
 
 

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../theme/colors/colors.dart';
-import '../theme/text_themes/text.dart';
+import '../theme/colors.dart';
 
 class SharedTextFormField extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
@@ -52,7 +50,7 @@ class SharedTextFormField extends StatelessWidget {
       obscureText: isObscureText ?? false,
       validator: validator,
       maxLength: maxLength,
-      cursorColor: AppColors.mainTealColor,
+      cursorColor: AppColors.mainColor,
       inputFormatters: [
         LengthLimitingTextInputFormatter(maxLength), ],
       decoration: InputDecoration(
@@ -62,7 +60,7 @@ class SharedTextFormField extends StatelessWidget {
         focusedBorder: focusedBorder ??
             OutlineInputBorder(
               borderSide: BorderSide(
-                color: AppColors.mainTealColor,
+                color: AppColors.mainColor,
                 width: 1.3,
               ),
               borderRadius: BorderRadius.circular(16.0),
@@ -83,7 +81,7 @@ class SharedTextFormField extends StatelessWidget {
           borderSide: const BorderSide(color: Colors.red, width: 1.3),
           borderRadius: BorderRadius.circular(16.0),
         ),
-        hintStyle: hintStyle ?? TextThemes.font14LightGrayRegular,
+        hintStyle: hintStyle ,
         hintText: hintText,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,

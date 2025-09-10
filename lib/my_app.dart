@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wasalni1/feature/splash_screen/presentation/splash_screen.dart';
 
-void main() => runApp(MyApp());
+import 'core/const/const.dart';
+import 'core/routing/app_router.dart';
+
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key, required this.appRouter});
 
+  final AppRouter appRouter;
   @override
   Widget build(BuildContext context) {
     //Set the fit size (Find your UI design, look at the dimensions of the device screen and fill it in,unit in dp)
@@ -17,7 +20,8 @@ class MyApp extends StatelessWidget {
       // Use builder only if you need to use library outside ScreenUtilInit context
       builder: (_ , child) {
         return MaterialApp(
-          debugShowCheckedModeBanner: false,
+          onGenerateRoute: appRouter.generateRoute,
+          initialRoute: splashScreen,          debugShowCheckedModeBanner: false,
           title: 'First Method',
           // You can use the library anywhere in the app even in theme
           theme: ThemeData(
@@ -27,7 +31,6 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const SplashScreen(),
     );
   }
 }
