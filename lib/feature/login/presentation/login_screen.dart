@@ -13,6 +13,7 @@ import 'package:wasalni1/feature/login/presentation/widgets/text_desc.dart';
 
 import '../../../core/const/const.dart';
 import '../../../core/shred_widgets/buttton.dart';
+import '../../../core/shred_widgets/loading.dart';
 import '../../../core/shred_widgets/shared_text_form_field.dart';
 import '../../../core/shred_widgets/toasts/error.dart';
 import '../logic/login_cubit.dart';
@@ -27,210 +28,228 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: AppColors.whiteColor,
       body: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
+          if (state is GetDataSuccess) {
+            if(state.user.userType=="Passenger"){
+              context.pushAndRemoveUntil(passengerHome);
+            }
+            else{
+              context.pushAndRemoveUntil(driverHome);
+            }
+          }
+          if (state is GetUserDataFailure) {
+            showErrorToast(context, state.error);
+          }
+          if (state is LoginLoading) {
+            dialogLoading(context);
+          }
           if (state is LoginSuccess) {
+            Navigator.pop(context);
             showSuccToast(context, "Login Sucsefully");
           }
           if (state is LoginFailure) {
+            Navigator.pop(context);
             showErrorToast(context, state.error);
           }
         },
         builder: (context, state) {
           var cubit = context.read<LoginCubit>();
-          return SingleChildScrollView(
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      height: screenHeight * 0.5,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.mainColor,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(150.r),
-                          ),
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(200.r),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: screenHeight * 0.6,
-                      child: Container(color: AppColors.whiteColor),
-                    ),
-                  ],
-                ),
-
-                /// 🟢 الفورم
-                Form(
-                  key: cubit.formKey,
-                  child: Center(
+                  ),
+                  Expanded(child: Container(color: AppColors.whiteColor)),
+                ],
+              ),
+              Form(
+                key: cubit.formKey,
+                child: Center(
+                  child: SingleChildScrollView(
                     child: Padding(
                       padding: EdgeInsets.only(
                         right: 20.w,
                         left: 20.w,
+                        top: 30.w,
                         bottom: 10.h,
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          /// 🟡 الجزء العلوي (اللوجو + Google Sign in)
                           Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  "assets/icons/logo1.png",
-                                  width: 50.w,
-                                  height: 50.h,
-                                ),
-                                SizedBox(height: 10.h),
-                                TextAndDesc(),
-                                SizedBox(height: 20.h),
-                                LoginGoogle(
-                                  onPressed: () {
-                                    cubit.signInWithGoogle();
-                                  },
-                                ),
-                                SizedBox(height: 20.h),
-                                Center(
-                                  child: AutoSizeText(
-                                    "------------- or Sign in with Email ------------- ",
-                                    maxLines: 1,
-                                    minFontSize: 9.sp.roundToDouble(),
-                                    maxFontSize: 20.sp.roundToDouble(),
-                                    style: GoogleFonts.nunitoSans(
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.whiteColor,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.asset(
+                                      "assets/icons/logo1.png",
+                                      width: 50.w,
+                                      height: 50.h,
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                              .animate()
-                              .move(
-                            begin: Offset(0, -screenHeight),
-                            end: Offset(0, 0),
-                            duration: 1.seconds,
-                            curve: Curves.easeOut,
-                          )
-                              .fadeIn(),
-
-                          /// 🟡 الجزء السفلي (الايميل + الباسورد + اللوجين)
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 20.h),
-                                Text(
-                                  "Login",
-                                  style: GoogleFonts.nunitoSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.normal,
-                                    color: AppColors.strongGrey,
-                                  ),
-                                ),
-                                SizedBox(height: 5.h),
-                                SharedTextFormField(
-                                  controller: cubit.emailController,
-                                  hintText: 'mail@abc.com',
-                                  validator: (String) {
-                                    if (String!.isEmpty) {
-                                      return 'Please enter your email';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                SizedBox(height: 10.h),
-                                Text(
-                                  "Password",
-                                  style: GoogleFonts.nunitoSans(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.normal,
-                                    color: AppColors.strongGrey,
-                                  ),
-                                ),
-                                SizedBox(height: 5.h),
-                                SharedTextFormField(
-                                  controller: cubit.passwordController,
-                                  isObscureText: true,
-                                  hintText: '*******************',
-                                  validator: (String) {
-                                    if (String!.isEmpty) {
-                                      return 'Please enter your password';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                SizedBox(height: 5.h),
-                                ForgotPassword(),
-                                SizedBox(height: 15.h),
-                                CustomButton(
-                                  text: 'Login',
-                                  onPressed: () {
-                                    if (cubit.formKey.currentState!.validate()) {
-                                      cubit.signInWithEmail();
-                                    } else {
-                                      print("error");
-                                    }
-                                  },
-                                ),
-                                SizedBox(height: 30.h),
-
-                                /// 🟡 النص تحت (معالجة overflow بالـ Wrap)
-                                Center(
-                                  child: Wrap(
-                                    alignment: WrapAlignment.center,
-                                    crossAxisAlignment: WrapCrossAlignment.center,
-                                    spacing: 5.w,
-                                    children: [
-                                      AutoSizeText(
-                                        "Don't have an account?",
+                                    SizedBox(height: 10.h),
+                                    TextAndDesc(),
+                                    SizedBox(height: 20.h),
+                                    LoginGoogle(
+                                      onPressed: () {
+                                        cubit.signInWithGoogle();
+                                      },
+                                    ),
+                                    SizedBox(height: 20.h),
+                                    Center(
+                                      child: AutoSizeText(
+                                        "------------- or Sign in with Email ------------- ",
                                         maxLines: 1,
-                                        minFontSize: 5.sp.roundToDouble(),
+                                        minFontSize: 9.sp.roundToDouble(),
                                         maxFontSize: 20.sp.roundToDouble(),
                                         style: GoogleFonts.nunitoSans(
-                                          fontWeight: FontWeight.normal,
-                                          color: AppColors.strongGrey,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.whiteColor,
                                         ),
                                       ),
-                                      TextButton(
-                                        onPressed: () {
-                                          context.pushAndRemoveUntil(registerScreen);
-                                        },
-                                        child: AutoSizeText(
-                                          "Create an account",
-                                          maxLines: 1,
-                                          minFontSize: 5.sp.roundToDouble(),
-                                          maxFontSize: 20.sp.roundToDouble(),
-                                          style: GoogleFonts.nunitoSans(
-                                            fontWeight: FontWeight.normal,
-                                            color: AppColors.mainColor,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          )
+                              )
+                              .animate()
+                              .move(
+                                begin: Offset(0, -screenHeight),
+                                end: Offset(0, 0),
+                                duration: 1.seconds,
+                                curve: Curves.easeOut,
+                              )
+                              .fadeIn(),
+                          Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 20.h),
+                                    Text(
+                                      "Login",
+                                      style: GoogleFonts.nunitoSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                        color: AppColors.strongGrey,
+                                      ),
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    SharedTextFormField(
+                                      controller: cubit.emailController,
+                                      hintText: 'mail@abc.com',
+                                      validator: (String) {
+                                        if (String!.isEmpty) {
+                                          return 'Please enter your email';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+
+                                    SizedBox(height: 10.h),
+                                    Text(
+                                      "Password",
+                                      style: GoogleFonts.nunitoSans(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.normal,
+                                        color: AppColors.strongGrey,
+                                      ),
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    SharedTextFormField(
+                                      controller: cubit.passwordController,
+                                      isObscureText: true,
+                                      hintText: '*******************',
+                                      validator: (String) {
+                                        if (String!.isEmpty) {
+                                          return 'Please enter your password';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    ForgotPassword(),
+                                    SizedBox(height: 15.h),
+                                    CustomButton(
+                                      text: 'Login',
+                                      onPressed: () {
+                                        if (cubit.formKey.currentState!
+                                            .validate()) {
+                                          cubit.signInWithEmail();
+                                        } else {
+                                          print("error");
+                                        }
+                                      },
+                                    ),
+                                    SizedBox(height: 30.h),
+                                    Center(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Flexible(
+                                            child: AutoSizeText(
+                                              "Don't have an account?",
+                                              maxLines: 1,
+                                              minFontSize: 5.sp.roundToDouble(),
+                                              maxFontSize: 20.sp
+                                                  .roundToDouble(),
+                                              style: GoogleFonts.nunitoSans(
+                                                fontWeight: FontWeight.normal,
+                                                color: AppColors.strongGrey,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          Flexible(
+                                            child: TextButton(
+                                              onPressed: () {
+                                                context.pushAndRemoveUntil(registerScreen);
+                                              },
+                                              child: AutoSizeText(
+                                                "Create an account",
+                                                maxLines: 1,
+                                                minFontSize: 5.sp
+                                                    .roundToDouble(),
+                                                maxFontSize: 20.sp
+                                                    .roundToDouble(),
+                                                style: GoogleFonts.nunitoSans(
+                                                  fontWeight: FontWeight.normal,
+                                                  color: AppColors.mainColor,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
                               .animate()
                               .slide(
-                            begin: const Offset(0, 1),
-                            end: const Offset(0, 0),
-                            duration: 1.seconds,
-                            curve: Curves.easeOut,
-                          )
+                                begin: const Offset(0, 1), // يطلع من تحت
+                                end: const Offset(0, 0),
+                                duration: 1.seconds,
+                                curve: Curves.easeOut,
+                              )
                               .fadeIn(),
                         ],
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),
