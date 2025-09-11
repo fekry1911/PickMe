@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../feature/login/data/rebo/auth_rebo.dart';
+import '../../feature/login/data/rebo/sign-email-password.dart';
+import '../../feature/login/data/rebo/sign_in_impl.dart';
 import '../../feature/login/logic/login_cubit.dart';
 
 final sl = GetIt.instance;
@@ -16,7 +18,8 @@ void setupServiceLocator() {
 
 
   // Repositories
-  sl.registerLazySingleton<AuthService>(() => AuthService(sl(),sl()),);
+  sl.registerLazySingleton<AuthGoogleService>(() => AuthGoogleService(sl(),sl()),);
+  sl.registerLazySingleton<SignInWithEmailAndPassword>(() => SignInWithEmailAndPasswordImpl(sl()),);
 
 
 
@@ -25,7 +28,7 @@ void setupServiceLocator() {
 
 
   // Cubits
-  sl.registerFactory<LoginCubit>(() => LoginCubit(sl<AuthService>()));
+  sl.registerFactory<LoginCubit>(() => LoginCubit(sl<AuthGoogleService>(),sl<SignInWithEmailAndPassword>()));
 
 
 }

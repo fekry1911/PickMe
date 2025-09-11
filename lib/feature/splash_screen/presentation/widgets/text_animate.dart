@@ -11,47 +11,32 @@ class TextAnimate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Center(
-      child:
-          Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Welcome",
-                    style: GoogleFonts.aboreto(
-                      fontSize: 30.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.whiteColor,
-                    ),
-                  ),
-                  SizedBox(height: 10.h),
-                  Text(
-                    "To Wasalni",
-                    style: GoogleFonts.aboreto(
-                      fontSize: 30.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.whiteColor,
-                    ),
-                  ),
-                ],
-              )
-              .animate()
-              .move(
-                begin: Offset(0, -screenHeight),
-                end: Offset(0, 0),
-                duration: 1.seconds,
-                curve: Curves.easeOut,
-              )
-              .then(delay: .5.seconds)
-              .shake(duration: 1.seconds, curve: Curves.easeInOut)
-              .then(delay: .5.seconds)
-              .move(
-                begin: Offset(0, 0),
-                end: Offset(0, -screenHeight),
-                duration: 1.seconds,
-                curve: Curves.easeIn,
-              ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Welcome",
+            style: GoogleFonts.aboreto(
+              fontSize: 30.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          SizedBox(height: 10.h),
+          Text(
+            "To Wasalni",
+            style: GoogleFonts.aboreto(
+              fontSize: 30.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.whiteColor,
+            ),
+          ),
+        ],
+      )
+
     );
   }
 }

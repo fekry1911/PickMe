@@ -4,6 +4,7 @@ import 'package:wasalni1/feature/login/presentation/login_screen.dart';
 import 'package:wasalni1/feature/splash_screen/presentation/splash_screen.dart';
 
 import '../../feature/login/logic/login_cubit.dart';
+import '../../feature/register/presentation/register_screen.dart';
 import '../const/const.dart';
 import '../di/di.dart';
 
@@ -25,6 +26,18 @@ class AppRouter {
           },
           transitionDuration: const Duration(milliseconds: 800),
         );
+        case registerScreen:
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+              create: (context) => sl<LoginCubit>(),
+              child: RegisterScreen(),
+            ),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              return FadeTransition(opacity: animation, child: child);
+            },
+            transitionDuration: const Duration(milliseconds: 800),
+          );
+
 
       default:
         return MaterialPageRoute(
