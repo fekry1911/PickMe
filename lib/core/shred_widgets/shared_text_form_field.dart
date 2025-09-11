@@ -56,14 +56,14 @@ class SharedTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         isDense: true,
         contentPadding: contentPadding ??
-            EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
+            EdgeInsets.symmetric(horizontal: 20.w, vertical: 13.h),
         focusedBorder: focusedBorder ??
             OutlineInputBorder(
               borderSide: BorderSide(
                 color: AppColors.mainColor,
                 width: 1.3,
               ),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(10.r),
             ),
         enabledBorder: enabledBorder ??
             OutlineInputBorder(
@@ -71,15 +71,15 @@ class SharedTextFormField extends StatelessWidget {
                 color: AppColors.lighterGrey,
                 width: 1.3,
               ),
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(10.r),
             ),
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.red, width: 1.3),
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(10.r),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.red, width: 1.3),
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(10.r),
         ),
         hintStyle: hintStyle ,
         hintText: hintText,
