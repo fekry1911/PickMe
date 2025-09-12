@@ -7,6 +7,7 @@ import 'package:wasalni1/feature/login/presentation/login_screen.dart';
 import 'package:wasalni1/feature/splash_screen/presentation/splash_screen.dart';
 
 import '../../feature/Passenger/home/presentation/passenger_home.dart';
+import '../../feature/driver/set_data/logic/set_up_driver_data_cubit.dart';
 import '../../feature/login/logic/login_cubit.dart';
 import '../../feature/register/logic/registeration_cubit.dart';
 import '../../feature/register/presentation/register_screen.dart';
@@ -45,7 +46,7 @@ class AppRouter {
 
       case driverHome: // من const.dart
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>DriverHome(),
+          pageBuilder: (context, animation, secondaryAnimation) => DriverHome(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
@@ -54,7 +55,10 @@ class AppRouter {
 
       case driverSetData: // من const.dart
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>SetDataDriver(),
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (context) => sl<SetUpDriverDataCubit>(),
+            child: SetDataDriver(),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
@@ -62,7 +66,8 @@ class AppRouter {
         );
       case passengerHome: // من const.dart
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>PassengerHome(),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              PassengerHome(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
@@ -70,7 +75,8 @@ class AppRouter {
         );
       case passengerSetData: // من const.dart
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>SetDataPassenger(),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              SetDataPassenger(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },

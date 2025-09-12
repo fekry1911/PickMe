@@ -6,6 +6,8 @@ import 'package:wasalni1/feature/login/data/rebo/get_user_data/get_user_data_imp
 import 'package:wasalni1/feature/register/data/rebo/create_email/create_email.dart';
 import 'package:wasalni1/feature/register/data/rebo/create_email/create_email_impl.dart';
 import 'package:wasalni1/feature/register/logic/registeration_cubit.dart';
+import '../../feature/driver/set_data/data/rebo/save_driver_car_data.dart';
+import '../../feature/driver/set_data/logic/set_up_driver_data_cubit.dart';
 import '../../feature/login/data/rebo/auth_rebo.dart';
 import '../../feature/login/data/rebo/get_user_data/get_user_data.dart';
 import '../../feature/login/data/rebo/sign-email-password.dart';
@@ -30,6 +32,7 @@ void setupServiceLocator() {
   sl.registerLazySingleton<SaveUserData>(() => SaveUserDataImpl(sl()),);
   sl.registerLazySingleton<CreateEmail>(() => CreateEmailImpl(sl()),);
   sl.registerLazySingleton<GetUserData>(() => GetUserDataImpl(sl()),);
+  sl.registerLazySingleton<SaveDriverCarData>(() => SaveDriverCarData(sl()),);
 
 
 
@@ -41,6 +44,8 @@ void setupServiceLocator() {
   // Cubits
   sl.registerFactory<LoginCubit>(() => LoginCubit(sl<AuthGoogleService>(),sl<SignInWithEmailAndPassword>(),sl<GetUserData>()));
   sl.registerFactory<RegisterCubit>(() => RegisterCubit(sl<CreateEmail>(),sl<SaveUserData>()));
+  sl.registerFactory<SetUpDriverDataCubit>(() => SetUpDriverDataCubit(sl<SaveDriverCarData>()));
+
 
 
 
