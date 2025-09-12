@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'core/di/di.dart';
+import 'core/helpers/cache_helper.dart';
 import 'core/routing/app_router.dart';
 import 'feature/splash_screen/presentation/splash_screen.dart';
 import 'firebase_options.dart';
@@ -14,6 +15,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setupServiceLocator();
+  await CacheHelper.init();
   runApp(
     DevicePreview(
       enabled: true, // enable for debug only

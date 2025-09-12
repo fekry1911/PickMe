@@ -9,6 +9,7 @@ import 'package:wasalni1/core/helpers/context_extention.dart';
 import 'package:wasalni1/core/shred_widgets/toasts/error.dart';
 
 import '../../../core/const/const.dart';
+import '../../../core/helpers/cache_helper.dart';
 import '../../../core/shred_widgets/loading.dart';
 import '../../../core/shred_widgets/shared_text_form_field.dart';
 import '../../../core/shred_widgets/toasts/suc.dart';
@@ -359,17 +360,18 @@ class RegisterScreen extends StatelessWidget {
                           )
                           .fadeIn(),
                       BlocListener<RegisterCubit, RegisterState>(
-                        listener: (context, state) {
+                        listener: (context, state) async {
                           if (state is RegisterationLoading) {
                             dialogLoading(context);
                           }
                           if (state is RegisterationSuccess) {
+                             await CacheHelper.putString(key: "uid",value: state.userModel.uid);
                             Navigator.pop(context);
                             if(state.userModel.userType=="Passenger"){
                               context.pushAndRemoveUntil(passengerHome);
                             }
                             else{
-                              context.pushAndRemoveUntil(driverHome);
+                              context.pushAndRemoveUntil(driverSetData);
                             }
                             showSuccToast(context, "تم التسجيل بنجاح");
                           }
