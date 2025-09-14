@@ -111,6 +111,7 @@ class SetDataDriver extends StatelessWidget {
                       context.pushAndRemoveUntil(driverHome);
                     }
                     if(state is ErrorPickImageFile){
+                      Navigator.pop(context);
                       showErrorToast(context, state.error);
                     }
                     if(state is LoadingImage){

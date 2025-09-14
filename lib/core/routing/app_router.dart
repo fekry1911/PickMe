@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wasalni1/feature/Passenger/set_data/presentation/set_data.dart';
+import 'package:wasalni1/feature/driver/home/logic/driver_home_cubit.dart';
 import 'package:wasalni1/feature/driver/home/presentation/driver_home.dart';
 import 'package:wasalni1/feature/driver/set_data/presentation/set_data.dart';
 import 'package:wasalni1/feature/login/presentation/login_screen.dart';
@@ -46,7 +47,10 @@ class AppRouter {
 
       case driverHome: // من const.dart
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => DriverHome(),
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (context) => sl<DriverHomeCubit>(),
+            child: DriverHome(),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },

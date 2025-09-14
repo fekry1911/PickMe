@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,10 +39,12 @@ class CarFiles extends StatelessWidget {
                 onPressed: () {
                   cubit.pickLicense();
                 },
-                child: Text(
+                child: AutoSizeText(
+                  maxLines: 1,
+                  minFontSize:13.sp.roundToDouble(),
+                  maxFontSize: 16.sp.roundToDouble(),
                   "Upload License Image",
                   style: GoogleFonts.alice(
-                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.mainColor,
                   ),
@@ -75,10 +78,12 @@ class CarFiles extends StatelessWidget {
                 onPressed: () {
                   cubit.pickCarFile();
                 },
-                child: Text(
+                child: AutoSizeText(
+                  maxLines: 1,
+                  minFontSize:13.sp.roundToDouble(),
+                  maxFontSize: 16.sp.roundToDouble(),
                   "Upload Car Image",
                   style: GoogleFonts.alice(
-                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.mainColor,
                   ),
@@ -113,10 +118,12 @@ class CarFiles extends StatelessWidget {
                 onPressed: () {
                   cubit.pickProfileFile();
                 },
-                child: Text(
+                child: AutoSizeText(
+                  maxLines: 1,
+                  minFontSize:13.sp.roundToDouble(),
+                  maxFontSize: 16.sp.roundToDouble(),
                   "Upload Profile Image",
                   style: GoogleFonts.alice(
-                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.mainColor,
                   ),
