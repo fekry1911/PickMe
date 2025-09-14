@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:wasalni1/core/data/models/user_model.dart';
 
 import '../../../core/errors/handle_fire_base_errors/error_fire.dart';
+import '../../../core/helpers/cache_helper.dart';
 import '../data/rebo/auth_rebo.dart';
 import '../data/rebo/get_user_data/get_user_data.dart';
 import '../data/rebo/sign-email-password.dart';
@@ -61,6 +62,8 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       final userModel = await _getUserData.getUserData(uid);
       if (userModel != null) {
+        await CacheHelper.putString(key: "uid", value: userModel.uid);
+        await CacheHelper.putString(key: "type", value: userModel.userType);
         emitState(GetDataSuccess(userModel));
       } else {
         emitState(GetUserDataFailure("User data not found"));
