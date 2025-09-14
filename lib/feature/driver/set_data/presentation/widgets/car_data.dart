@@ -39,7 +39,7 @@ class CarFiles extends StatelessWidget {
                   cubit.pickLicense();
                 },
                 child: Text(
-                  "Upload Car Image",
+                  "Upload License Image",
                   style: GoogleFonts.alice(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
@@ -114,7 +114,7 @@ class CarFiles extends StatelessWidget {
                   cubit.pickProfileFile();
                 },
                 child: Text(
-                  "Upload Car Image",
+                  "Upload Profile Image",
                   style: GoogleFonts.alice(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
