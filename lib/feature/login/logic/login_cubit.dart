@@ -64,6 +64,7 @@ class LoginCubit extends Cubit<LoginState> {
       if (userModel != null) {
         await CacheHelper.putString(key: "uid", value: userModel.uid);
         await CacheHelper.putString(key: "type", value: userModel.userType);
+        await CacheHelper.putBoolean(key: "carDataFinished", value: true);
         emitState(GetDataSuccess(userModel));
       } else {
         emitState(GetUserDataFailure("User data not found"));
@@ -77,6 +78,10 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> signOut() async {
     await _authService.signOut();
+    CacheHelper.removeString(key: "uid");
+    CacheHelper.removeString(key: "type");
+    CacheHelper.removeBool(key: "carDataFinished");
+    emitState(SignOutSuccess());
   }
 
   void emitState(LoginState state) {

@@ -50,3 +50,8 @@ final class GetUserDataFailure extends LoginState {
   List<Object?> get props => [error, timestamp];
 }
 
+final class SignOutSuccess extends LoginState {
+  @override
+  List<Object?> get props => [];
+}
+

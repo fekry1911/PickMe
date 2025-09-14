@@ -81,6 +81,7 @@ class SetUpDriverDataCubit extends Cubit<SetUpDriverDataState> {
       await saveDriverCarData.saveDriverCarData(carModel, uid).then((
         onValue,
       ) async {
+        await saveDriverCarData.setAvailability(uid, true);
         await CacheHelper.putBoolean(key: "carDataFinished", value: true);
       });
 
