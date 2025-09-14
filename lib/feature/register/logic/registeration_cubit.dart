@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+import 'package:wasalni1/core/helpers/cache_helper.dart';
 import 'package:wasalni1/feature/register/data/rebo/save_user_data/save_user_data.dart';
 
 import '../../../core/data/models/user_model.dart';
@@ -39,8 +40,10 @@ class RegisterCubit extends Cubit<RegisterState> {
        uid: onValue.uid,
        birthDate: birthDateController.text,
      );
-     saveUserData.saveUserData(userModel).then((value){
+     saveUserData.saveUserData(userModel).then((value) async {
        emit(RegisterationSuccess(userModel));
+       await CacheHelper.putString(key: "uid", value: onValue.uid);
+       await CacheHelper.putString(key: "type", value: type);
        clear();
      }).catchError((onError){
        final errorMessage = FirebaseErrorHandler.instance.getFirestoreErrorMessage(onError);
