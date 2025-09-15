@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wasalni1/feature/Passenger/set_data/presentation/set_data.dart';
 import 'package:wasalni1/feature/driver/home/logic/driver_home_cubit.dart';
 import 'package:wasalni1/feature/driver/home/presentation/driver_home.dart';
 import 'package:wasalni1/feature/driver/set_data/presentation/set_data.dart';
 import 'package:wasalni1/feature/login/presentation/login_screen.dart';
 import 'package:wasalni1/feature/splash_screen/presentation/splash_screen.dart';
 
+import '../../feature/Passenger/driver_details/presentation/drivers.dart';
+import '../../feature/Passenger/home/logic/passenger_cubit.dart';
 import '../../feature/Passenger/home/presentation/passenger_home.dart';
 import '../../feature/driver/set_data/logic/set_up_driver_data_cubit.dart';
 import '../../feature/login/logic/login_cubit.dart';
@@ -70,22 +71,24 @@ class AppRouter {
         );
       case passengerHome: // من const.dart
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              PassengerHome(),
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (context) => sl<PassengerCubit>(),
+            child: PassengerHome(),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
           transitionDuration: const Duration(milliseconds: 800),
         );
-      case passengerSetData: // من const.dart
+      case allDrivers:
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              SetDataPassenger(),
+          pageBuilder: (context, animation, secondaryAnimation) => DriverCardScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
           transitionDuration: const Duration(milliseconds: 800),
         );
+
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

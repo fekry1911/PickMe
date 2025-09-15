@@ -8,6 +8,7 @@ import 'package:wasalni1/feature/login/data/rebo/get_user_data/get_user_data_imp
 import 'package:wasalni1/feature/register/data/rebo/create_email/create_email.dart';
 import 'package:wasalni1/feature/register/data/rebo/create_email/create_email_impl.dart';
 import 'package:wasalni1/feature/register/logic/registeration_cubit.dart';
+import '../../feature/Passenger/home/logic/passenger_cubit.dart';
 import '../../feature/driver/home/logic/driver_home_cubit.dart';
 import '../../feature/driver/set_data/data/rebo/image_pick.dart';
 import '../../feature/driver/set_data/data/rebo/save_driver_car_data.dart';
@@ -53,6 +54,7 @@ void setupServiceLocator() {
   sl.registerFactory<RegisterCubit>(() => RegisterCubit(sl<CreateEmail>(),sl<SaveUserData>()));
   sl.registerFactory<SetUpDriverDataCubit>(() => SetUpDriverDataCubit(sl<SaveDriverCarData>(),sl<SupabaseImageService>()));
   sl.registerFactory<DriverHomeCubit>(() => DriverHomeCubit(sl<DatabaseReference>()));
+  sl.registerFactory<PassengerCubit>(() => PassengerCubit());
 
 
 
