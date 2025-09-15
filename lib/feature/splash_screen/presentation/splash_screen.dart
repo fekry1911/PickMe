@@ -66,7 +66,7 @@ class SplashScreen extends StatelessWidget {
                   print(type);
                   print(carDataFinished);
                   if(uid !=null){
-                    if(type=="passenger"){
+                    if(type=="Passenger"){
                       context.pushAndRemoveUntil(passengerHome);
                     }
                     if(type=="Driver"){

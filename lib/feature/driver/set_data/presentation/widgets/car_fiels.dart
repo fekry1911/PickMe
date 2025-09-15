@@ -78,7 +78,7 @@ class CarData extends StatelessWidget {
                 color: AppColors.mainColor, // الكلام اسود
                 fontSize: 16.sp,
               ),
-              items: ["ملاكي", "أجرة", "ميكروباص", "موتوسيكل", "عجلة", "توكتوك"]
+              items: ["ملاكي", "أجرة","موتوسيكل", "عجلة", "توكتوك"]
                   .map((type) => DropdownMenuItem(value: type, child: Text(type)))
                   .toList(),
               onChanged: (value) {
