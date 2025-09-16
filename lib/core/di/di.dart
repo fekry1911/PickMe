@@ -8,6 +8,8 @@ import 'package:wasalni1/feature/login/data/rebo/get_user_data/get_user_data_imp
 import 'package:wasalni1/feature/register/data/rebo/create_email/create_email.dart';
 import 'package:wasalni1/feature/register/data/rebo/create_email/create_email_impl.dart';
 import 'package:wasalni1/feature/register/logic/registeration_cubit.dart';
+import '../../feature/Passenger/driver_details/data/repo/get_drivers_type.dart';
+import '../../feature/Passenger/driver_details/logic/type_drivers_cubit.dart';
 import '../../feature/Passenger/home/logic/passenger_cubit.dart';
 import '../../feature/driver/home/logic/driver_home_cubit.dart';
 import '../../feature/driver/set_data/data/rebo/image_pick.dart';
@@ -41,6 +43,8 @@ void setupServiceLocator() {
   sl.registerLazySingleton<GetUserData>(() => GetUserDataImpl(sl()),);
   sl.registerLazySingleton<SaveDriverCarData>(() => SaveDriverCarData(sl(),sl()),);
   sl.registerLazySingleton<SupabaseImageService>(() => SupabaseImageService(sl<SupabaseClient>()),);
+  sl.registerLazySingleton<GetAllDriversInType>(() => GetAllDriversInType(sl<FirebaseFirestore>()),);
+
 
 
 
@@ -55,6 +59,7 @@ void setupServiceLocator() {
   sl.registerFactory<SetUpDriverDataCubit>(() => SetUpDriverDataCubit(sl<SaveDriverCarData>(),sl<SupabaseImageService>()));
   sl.registerFactory<DriverHomeCubit>(() => DriverHomeCubit(sl<DatabaseReference>()));
   sl.registerFactory<PassengerCubit>(() => PassengerCubit());
+  sl.registerFactory<TypeDriversCubit>(() => TypeDriversCubit(sl<DatabaseReference>(),sl<GetAllDriversInType>()));
 
 
 

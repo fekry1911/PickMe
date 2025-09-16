@@ -12,20 +12,20 @@ class PassengerHomeMain extends StatelessWidget {
   PassengerHomeMain({super.key});
 
   List items = [
-    {"text": "اجره", "image": "assets/images/اجره.jpg"},
+    {"text": "أجرة", "image": "assets/images/اجره.jpg"},
     {"text": "ملاكي", "image": "assets/images/ملاكي.jpg"},
     {"text": "توكتوك", "image": "assets/images/توكتوك.jpg"},
     {"text": "موتوسيكل", "image": "assets/images/موتوسيكل.jpeg"},
-    {"text": "عجله", "image": "assets/images/عجله.jpg"},
+    {"text": "عجلة", "image": "assets/images/عجله.jpg"},
   ];
-
+//              items: ["ملاكي", "أجرة","موتوسيكل", "عجلة", "توكتوك"]
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: (){
-            context.pushNamed(allDrivers);
+            context.pushNamed(allDrivers,arguments: items[index]["text"]);
 
           },
           child: Card(

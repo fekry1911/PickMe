@@ -5,6 +5,8 @@ class UserModel {
   String userType;
   String uid;
   String birthDate;
+  String? profileImage;
+
 
   UserModel({
     required this.name,
@@ -13,6 +15,7 @@ class UserModel {
     required this.userType,
     required this.uid,
     required this.birthDate,
+    this.profileImage,
   });
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -21,6 +24,7 @@ class UserModel {
       name: json['name'],
       email: json['email'],
       phone: json['phone'],
+      profileImage: json['profileImage'],
       userType: json['userType'],);
   }
   Map<String, dynamic> toJson() {
