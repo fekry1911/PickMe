@@ -6,6 +6,7 @@ import 'package:wasalni1/feature/driver/set_data/presentation/set_data.dart';
 import 'package:wasalni1/feature/login/presentation/login_screen.dart';
 import 'package:wasalni1/feature/splash_screen/presentation/splash_screen.dart';
 
+import '../../feature/Passenger/driver_details/logic/type_drivers_cubit.dart';
 import '../../feature/Passenger/driver_details/presentation/drivers.dart';
 import '../../feature/Passenger/home/logic/passenger_cubit.dart';
 import '../../feature/Passenger/home/presentation/passenger_home.dart';
@@ -81,8 +82,12 @@ class AppRouter {
           transitionDuration: const Duration(milliseconds: 800),
         );
       case allDrivers:
+        final args = settings.arguments;
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => DriverCardScreen(),
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (context) => sl<TypeDriversCubit>()..getAllDriversType(args.toString()),
+            child: DriverCardScreen(),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
