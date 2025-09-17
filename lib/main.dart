@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/di/di.dart';
@@ -21,6 +22,8 @@ Future<void> main() async {
     anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmbXpsYWVrZW5tZ2poYW9ram1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc3NzU0OTUsImV4cCI6MjA3MzM1MTQ5NX0.2jh_nYQdIhrRwJcZWhForzigxLrloAiB6UeKBKov6Og",
   );
   await CacheHelper.init();
+  await dotenv.load(fileName: ".env");
+
   runApp(
     DevicePreview(
       enabled: true, // enable for debug only
