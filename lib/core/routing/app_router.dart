@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wasalni1/feature/Passenger/driver_call/presentation/driver_data.dart';
 import 'package:wasalni1/feature/driver/home/logic/driver_home_cubit.dart';
 import 'package:wasalni1/feature/driver/home/presentation/driver_home.dart';
 import 'package:wasalni1/feature/driver/set_data/presentation/set_data.dart';
 import 'package:wasalni1/feature/login/presentation/login_screen.dart';
 import 'package:wasalni1/feature/splash_screen/presentation/splash_screen.dart';
 
+import '../../feature/Passenger/driver_call/logic/get_driver_data_cubit.dart';
 import '../../feature/Passenger/driver_details/logic/type_drivers_cubit.dart';
 import '../../feature/Passenger/driver_details/presentation/drivers.dart';
 import '../../feature/Passenger/home/logic/passenger_cubit.dart';
@@ -85,8 +87,21 @@ class AppRouter {
         final args = settings.arguments;
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
-            create: (context) => sl<TypeDriversCubit>()..getAllDriversType(args.toString()),
+            create: (context) =>
+                sl<TypeDriversCubit>()..getAllDriversType(args.toString()),
             child: DriverCardScreen(),
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          transitionDuration: const Duration(milliseconds: 800),
+        );
+      case driverData:
+        final args = settings.arguments;
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (context) => sl<GetDriverDataCubit>()..getDriverData(args.toString()),
+            child: DriverData(),
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);

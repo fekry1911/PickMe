@@ -18,7 +18,6 @@ class PassengerHomeMain extends StatelessWidget {
     {"text": "موتوسيكل", "image": "assets/images/موتوسيكل.jpeg"},
     {"text": "عجلة", "image": "assets/images/عجله.jpg"},
   ];
-//              items: ["ملاكي", "أجرة","موتوسيكل", "عجلة", "توكتوك"]
   @override
   Widget build(BuildContext context) {
     return ListView.separated(

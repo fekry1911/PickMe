@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class AppColors{
   static Color mainColor=Color(0xff7F265B);
+  static Color deepMainColor=Color(0xffBB395C);
   static Color greyColor=Color(0xff555555);
   static Color whiteColor=Color(0xffFFFFFF);
   static Color darkBlue=Color(0xffC2C2C2);
