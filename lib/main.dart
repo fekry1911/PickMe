@@ -22,7 +22,6 @@ Future<void> main() async {
     anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmbXpsYWVrZW5tZ2poYW9ram1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc3NzU0OTUsImV4cCI6MjA3MzM1MTQ5NX0.2jh_nYQdIhrRwJcZWhForzigxLrloAiB6UeKBKov6Og",
   );
   await CacheHelper.init();
-  await dotenv.load(fileName: ".env");
 
   runApp(
     DevicePreview(
