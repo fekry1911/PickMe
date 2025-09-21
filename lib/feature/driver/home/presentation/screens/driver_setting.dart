@@ -20,7 +20,7 @@ class DriverSetting extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            " Driver Setting",
+            " أعدادات",
             style: GoogleFonts.aboreto(
               fontSize: 30,
               fontWeight: FontWeight.bold,
