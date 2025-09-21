@@ -20,7 +20,7 @@ class DriverHome extends StatelessWidget {
           body: cubit.screens[cubit.index],
           bottomNavigationBar: BottomNavigationBar(
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "الرئيسيه"),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
                 label: "Settings",
